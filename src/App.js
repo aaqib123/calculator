@@ -22,6 +22,7 @@ class App extends Component {
     this.flagValue = false;
   };
 
+  
   addtoInputMath = (val) => {
     let temp = { input: this.state.input + val };
     let lastDigit = (temp.input.toString().slice(-1));
