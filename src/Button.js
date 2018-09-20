@@ -4,10 +4,9 @@ import './Button.css';
 
 class Button extends React.Component {
     render() {
-        const asdf= this.props.value;
         return (
         <div className="button-wrapper"  onClick={this.props.handleClick} >
-            {asdf}
+            {this.props.value}
         </div>
         );
 
