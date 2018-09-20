@@ -9,38 +9,53 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.addtoInputNumber = this.addtoInputNumber.bind(this);
+    this.addtoInputMath = this.addtoInputMath.bind(this);
+    this.handleEqual = this.handleEqual.bind(this);
     this.state = {
       input: ''
     };
-    var flagValue = new Boolean(false); 
+    var flagValue = new Boolean(false); //falg value to prevent multiple arith operators
   }
 
+  //appends number to state. 
   addtoInputNumber = (val) => {
+    //convert to string to prevent adding instead of appending
     this.setState({ input: this.state.input + val.toString() });
-    let temp = this.state.input + val;
-    console.log("state " +  temp);
+    // console.log("state " + this.state.input + val);
+    //resets flag value
     this.flagValue = false;
   };
 
-  
+  //appends arith operators to state
   addtoInputMath = (val) => {
+    //if no entry madfe and perios is clicked  = enter 0.
+    if (this.state.input == '' && val == '.') { this.setState({ input: this.state.input + '0.' }) };
+
     let temp = { input: this.state.input + val };
+    //get last digit of the value in state.
     let lastDigit = (temp.input.toString().slice(-1));
-    console.log("temp " + temp.input);
-    console.log("LAST DIGIT " + lastDigit);
-
+    console.log("  TEMP :" + temp.input + "  LAST DIGIT :" + lastDigit + "  FLAG :" + this.flagValue);
+    //if input is NaN and the flag is set to false then add the arith operator
+    // this prevents adding multiple arith operators in a sequence
     if (isNaN(lastDigit) && this.flagValue == false) {
-      console.log(this.flagValue);
       this.setState(temp);
-      this.flagValue = true; 
+      this.flagValue = true;
     }
-
   };
 
+  //perform math eval on clicking =
   handleEqual = () => {
     console.log("equal button clicked");
-    this.setState({ input: math.eval(this.state.input) });
+    //handles if  = is clicked with no entry
+    if (this.state.input != '') {
+      let lastDigit = (this.state.input.toString().slice(-1));
+      //if condition to make sure the last digit in the state is not a operator.
+      if (!isNaN(lastDigit)) {
+        this.setState({ input: math.eval(this.state.input) });
+      }
+    }
   };
+
 
   render() {
     return (
@@ -73,7 +88,8 @@ class App extends Component {
           </div>
           <div className="row">
             <ClearButton value="clear" handleClear={() => {
-              console.log("asdf")
+              console.log("CLear")
+              //blank state
               this.setState({
                 input: ''
               })
