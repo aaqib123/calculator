@@ -17,7 +17,7 @@ class App extends Component {
     var flagValue = new Boolean(false); //falg value to prevent multiple arith operators
   }
 
-  //appends number to state. 
+  //appends number to state.
   addtoInputNumber = val => {
     //convert to string to prevent adding instead of appending
     this.setState({ input: this.state.input + val.toString() });
@@ -179,8 +179,8 @@ class App extends Component {
               value="clear"
               handleClear={() => {
                 console.log("CLear");
-              //blank state
-              this.setState({
+                //blank state
+                this.setState({
                   input: ""
                 });
               }}
